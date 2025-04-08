@@ -1,4 +1,5 @@
 import tkinter as tk
+from main import WebAutomation
 
 
 class App:
@@ -55,6 +56,32 @@ class App:
         )
         self.permanent_address_entry = tk.Entry(self.form_frame)
         self.permanent_address_entry.grid(row=3, column=1, sticky="ew")
+
+        # Buttons
+        self.button_frame = tk.Frame(self.root)
+        self.button_frame.pack(padx=10, pady=10, fill=tk.X)
+
+        tk.Button(self.button_frame, text="Submit", command=self.submit_form).grid(
+            row=0, column=0, padx=10
+        )
+        tk.Button(self.button_frame, text="Close", command=self.close_browser).grid(
+            row=0, column=1, padx=10
+        )
+
+    def submit_form(self):
+        username = self.username_entry.get()
+        password = self.password_entry.get()
+        url = self.url_entry.get()
+        email = self.email_entry.get()
+        address = self.address_entry.get()
+        permanent_address = self.permanent_address_entry.get()
+
+        web_automation = WebAutomation()
+        web_automation.login(username, password)
+        web_automation.submit_form()
+
+    def close_browser(self):
+        self.root.quit()
 
 
 root = tk.Tk()
